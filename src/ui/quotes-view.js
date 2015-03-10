@@ -1,3 +1,24 @@
+/* Quotes View
+ *
+ * This view component has 2 main purposes:
+ *  + Render a list of quotes the DOM
+ *    The list of quotes are retrieved from the QuoteStorage.
+ *    Each quote is rendered as an li element into ul.quote-list
+ *  + Respond to Human Interaction events
+ *    The user can add a quote by clicking the button.add-quote
+ *      input.new-quote is then read to get the user's quote.
+ *      The quote that the user entered is pushed onto the QuoteStore
+ *      and is added to the ul.quote-list as an li element
+ *      (If the user adds an empty quote, an alert message is shown.)
+ *    The user can clear all the quotes by clicking button.clear-all-quotes.
+ *      The QuoteStore is cleared of all quotes and all the 
+ *      ul.quote-list is re-rendered without any li elements
+ *
+ */
+
+ /*
+  * Get the QuoteStorage so we can load, push and clear quotes.
+  */
 var QuoteStorage = require('../stores/quote-storage');
 
 /* 
@@ -69,7 +90,12 @@ var hiHideAlert = function(event){
  *
  */
 var hiSaveUserQuote = function(event){
-  /* +++ implement me! */
+  var quote = $newQuote.val();
+  if(0 === quote.trim().length) {
+    return showAlert();
+  }
+  saveUserQuote(quote);
+  $newQuote.val('');
 };
 
 /* saveUserQuote
@@ -78,7 +104,8 @@ var hiSaveUserQuote = function(event){
  *
  */
 var saveUserQuote = function(quote){
-  /* +++ implement me! */
+  QuoteStorage.push(quote);
+  renderQuote(quote);
 };
 
 /* clearQuoteList
@@ -87,7 +114,8 @@ var saveUserQuote = function(quote){
  *
  */
 var clearQuoteList = function(){
-  /* +++ implement me! */
+  QuoteStorage.clear();
+  renderQuoteList();
 };
 
 /* renderQuoteList
@@ -95,7 +123,12 @@ var clearQuoteList = function(){
  *
  */
 var renderQuoteList = function(){
-  /* +++ implement me! */
+  $quoteList.html('')
+  var quotes = QuoteStorage.load();
+  for(var i=0; i < quotes.length; i++){
+    quote = quotes[i];
+    renderQuote(quote);
+  }
 };
 
 /* renderQuote
@@ -104,7 +137,8 @@ var renderQuoteList = function(){
  *
  */
 var renderQuote = function(quote) {
-  /* +++ implement me! */
+  quoteHTML = $("<li class='list-group-item'>" + quote + "</li>")
+  $quoteList.append(quoteHTML)
 };
 
 

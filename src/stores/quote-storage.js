@@ -1,3 +1,18 @@
+/* Quote Storage
+ * Load and Store a list of quotes from localStorage.
+ * A default key is specified for storing the list of quotes,
+ * however, the key can be changed if needed (like for running specs)
+ * 
+ * Quotes can be pushed into list.
+ * localStorage only allows you to store string values,
+ * so a JavaScript array is converted to JSON and 
+ * saved as a json string using key() using JSON.stringify
+ *
+ * Quotes can also be loaded from localStorage.
+ * The json string is loaded from storage at key()
+ * and parsed back into an JavaScript Array using JSON.parse
+ * 
+ */
 
 /* key
  *  Returns the key used for local storage.
@@ -20,8 +35,20 @@ var key = function(newKey) {
  *
  */
 var load = function() {
-  /* implement me */
-  return [];
+  var quoteListJSON = localStorage.getItem(key());
+  var quoteList = JSON.parse(quoteListJSON) || [];
+  return quoteList;
+}
+
+/* store
+ *  Saves an array of quotes to localStorage
+ *  The array is saved as 
+ *
+ *  key: the new key to use for storing quotes in localStorage [optional]
+ */
+var store = function(quotesList) {
+  quotesListJSON = JSON.stringify(quotesList);
+  localStorage.setItem(key(), quotesListJSON);
 }
 
 /* push
@@ -32,7 +59,9 @@ var load = function() {
  *  localStorage.setItem(key(), value);
  */
 var push = function(quote) {
-  /* implement me */
+  var list = load(key()) || [];
+  list.push(quote);
+  store(list);
 }
 
 /* clear
@@ -40,7 +69,7 @@ var push = function(quote) {
  *
  */
 var clear = function() {
-  /* implement me */
+  localStorage.removeItem(key());
 }
 
 

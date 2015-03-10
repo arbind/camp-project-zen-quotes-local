@@ -5,6 +5,7 @@
 ### Purpose:
 
 - Use jQuery to render to the DOM
+- Use jQuery to handle human interaction events
 - See how separation of concerns works
 - Understand limitations of local storage
 
