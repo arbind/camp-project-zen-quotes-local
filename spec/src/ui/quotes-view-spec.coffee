@@ -16,6 +16,11 @@ Store = require("stores/quote-storage")
 
 describe "Quote UI", ->
 
+  it "Has a quote view", ->
+    expect($('ul.quote-list').length).to.equal 1
+    expect($('input.new-quote').length).to.equal 1
+    expect($('button.add-quote').length).to.equal 1
+
   beforeEach ->
     Store.key "#{Store.key()}-spec"
     localStorage.removeItem Store.key()

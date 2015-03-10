@@ -6,6 +6,9 @@ Store = require("stores/quote-storage")
 describe "QuoteStorage", ->
   quoteList = null
 
+  it "Exists", ->
+    expect(Store).to.be.ok
+
   beforeEach ->
     Store.key "#{Store.key()}-spec"
     localStorage.removeItem Store.key()
